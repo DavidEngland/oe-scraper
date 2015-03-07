@@ -64,6 +64,11 @@ function cwrap_it( $tag, $str )
     echo "<$tag>$str</$tag>\n";
 }
 
+/*!
+ *
+ * Look for digits and wrap in Bootstrap badge.
+ *
+ */
 function badger( $txt )
 {
     $pat = '/(\d+)/m';
