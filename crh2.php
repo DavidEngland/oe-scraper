@@ -68,6 +68,7 @@ function cwrap_it( $tag, $str )
  *
  * Look for digits and wrap in Bootstrap badge.
  *
+ * @param $txt Text to scan for digits to markup
  */
 function badger( $txt )
 {
