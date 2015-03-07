@@ -3,7 +3,7 @@
  * New way of doing things
  * @author David England
  */
-
+// Not used currently, add regex to just do $city
 $city = "UNION GROVE";
 $date_format = 'D, d M Y H:i:s +00000';
 
@@ -74,6 +74,7 @@ function badger( $txt )
 }
 
 ob_start();
+//include header for WordPress (WP) import
 include 'header.php';
 
 /**
@@ -141,6 +142,7 @@ foreach ( $rows as $row ) {
         $new_title = str_replace( '-', ' ', $title[4] );
         wrap_it( 'title', $new_title );
         //        echo "		<dc:creator><![CDATA[Mikko]]></dc:creator>\n";
+        //Need to change for multiple users.
         cwrap_it( 'dc:creator', 'Mikko' );
         
         
@@ -224,7 +226,7 @@ foreach ( $rows as $row ) {
         else {
             post_meta( '_listings_label', 'featured' );
         }
-        
+        //Some more import template stuff, main thing is the 'property' custom post type.
         include 'post_stuff.php';
         echo "</item>\n";
     } //preg_match( "/UNION GROVE/i", $cols->item( 0 )->nodeValue )
