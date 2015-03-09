@@ -3,11 +3,8 @@
  * New way of doing things
  * @author David England
  */
-// Not used currently, add regex to just do $city
-$city = "UNION GROVE";
-$state = "AL";
-$zip  = "35175";
 
+$state = 'AL'; //Alabama
 
 
 $date_format = 'D, d M Y H:i:s +00000';
@@ -30,7 +27,12 @@ $labels = array(
     "Property Type",
     "Property SubType" 
 );
+/*
+ *  Array to map North Alabama zip codes to city.
+ */
+
 $zip2city = array( "35016"=>"ARAB", "35019"=>"BAILEYTON", "35031"=>"BLOUNTSVILLE", "35033"=>"BREMEN", "35049"=>"CLEVELAND", "35053"=>"CRANE HILL", "35055"=>"CULLMAN", "35057"=>"CULLMAN", "35058"=>"CULLMAN", "35062"=>"DORA", "35077"=>"HANCEVILLE", "35083"=>"HOLLY POND", "35087"=>"JOPPA", "35098"=>"LOGAN", "35120"=>"ODENVILLE", "35121"=>"ONEONTA", "35131"=>"RAGLAND", "35146"=>"SPRINGVILLE", "35160"=>"TALLADEGA", "35175"=>"UNION GROVE", "35179"=>"VINEMONT", "35401"=>"TUSCALOOSA", "35501"=>"JASPER", "35504"=>"JASPER", "35540"=>"ADDISON", "35541"=>"ARLEY", "35553"=>"DOUBLE SPRINGS", "35565"=>"HALEYVILLE", "35570"=>"HAMILTON", "35572"=>"HOUSTON", "35578"=>"NAUVOO", "35601"=>"DECATUR", "35602"=>"DECATUR", "35603"=>"DECATUR", "35610"=>"ANDERSON", "35611"=>"ATHENS", "35612"=>"ATHENS", "35613"=>"ATHENS", "35614"=>"ATHENS", "35618"=>"COURTLAND", "35619"=>"DANVILLE", "35620"=>"ELKMONT", "35621"=>"EVA", "35622"=>"FALKVILLE", "35630"=>"FLORENCE", "35633"=>"FLORENCE", "35634"=>"FLORENCE", "35640"=>"HARTSELLE", "35643"=>"HILLSBORO", "35645"=>"KILLEN", "35647"=>"LESTER", "35648"=>"LEXINGTON", "35649"=>"MOORESVILLE", "35650"=>"MOULTON", "35651"=>"MOUNT HOPE", "35652"=>"ROGERSVILLE", "35653"=>"RUSSELLVILLE", "35654"=>"RUSSELLVILLE", "35660"=>"SHEFFIELD", "35670"=>"SOMERVILLE", "35671"=>"TANNER", "35672"=>"TOWN CREEK", "35673"=>"TRINITY", "35739"=>"ARDMORE", "35740"=>"BRIDGEPORT", "35741"=>"BROWNSBORO", "35742"=>"CAPSHAW", "35744"=>"DUTTON", "35745"=>"ESTILLFORK", "35746"=>"FACKLER", "35747"=>"GRANT", "35748"=>"GURLEY", "35749"=>"HARVEST", "35750"=>"HAZEL GREEN", "35751"=>"HOLLYTREE", "35752"=>"HOLLYWOOD", "35754"=>"LACEYS SPRING", "35755"=>"LANGSTON", "35756"=>"MADISON", "35757"=>"MADISON", "35758"=>"MADISON", "35759"=>"MERIDIANVILLE", "35760"=>"NEW HOPE", "35761"=>"NEW MARKET", "35763"=>"OWENS CROSS ROADS", "35764"=>"PAINT ROCK", "35765"=>"PISGAH", "35766"=>"PRINCETON", "35767"=>"RYLAND", "35768"=>"SCOTTSBORO", "35769"=>"SCOTTSBORO", "35771"=>"SECTION", "35772"=>"STEVENSON", "35773"=>"TONEY", "35774"=>"TRENTON", "35775"=>"VALHERMOSO SPRINGS", "35776"=>"WOODVILLE", "35801"=>"HUNTSVILLE", "35802"=>"HUNTSVILLE", "35803"=>"HUNTSVILLE", "35805"=>"HUNTSVILLE", "35806"=>"HUNTSVILLE", "35810"=>"HUNTSVILLE", "35811"=>"HUNTSVILLE", "35812"=>"HUNTSVILLE", "35816"=>"HUNTSVILLE", "35824"=>"HUNTSVILLE", "35895"=>"HUNTSVILLE", "35901"=>"GADSDEN", "35902"=>"GADSDEN", "35903"=>"GADSDEN", "35904"=>"GADSDEN", "35905"=>"GADSDEN", "35906"=>"RAINBOW CITY", "35907"=>"GADSDEN", "35950"=>"ALBERTVILLE", "35951"=>"ALBERTVILLE", "35952"=>"ALTOONA", "35953"=>"ASHVILLE", "35954"=>"ATTALLA", "35956"=>"BOAZ", "35957"=>"BOAZ", "35958"=>"BRYANT", "35959"=>"CEDAR BLUFF", "35960"=>"CENTRE", "35961"=>"COLLINSVILLE", "35962"=>"CROSSVILLE", "35963"=>"DAWSON", "35964"=>"DOUGLAS", "35966"=>"FLAT ROCK", "35967"=>"FORT PAYNE", "35968"=>"FORT PAYNE", "35971"=>"FYFFE", "35972"=>"GALLANT", "35973"=>"GAYLESVILLE", "35974"=>"GERALDINE", "35975"=>"GROVEOAK", "35976"=>"GUNTERSVILLE", "35978"=>"HENAGAR", "35979"=>"HIGDON", "35980"=>"HORTON", "35981"=>"IDER", "35983"=>"LEESBURG", "35984"=>"MENTONE", "35986"=>"RAINSVILLE", "35987"=>"STEELE", "35988"=>"SYLVANIA", "35989"=>"VALLEY HEAD", "36206"=>"ANNISTON", "36207"=>"ANNISTON", "36251"=>"ASHLAND", "36264"=>"HEFLIN", "36265"=>"JACKSONVILLE", "36266"=>"LINEVILLE", "36271"=>"OHATCHEE", "36272"=>"PIEDMONT", "36279"=>"WELLINGTON", "36530"=>"ELBERTA", "36775"=>"SARDIS"); 
+
 function tcase ( $str ) { return ucwords( strtolower( trim( $str ) ) ); }
 
 // Few functions to aid in XML output
@@ -112,8 +114,7 @@ foreach ( $rows as $row ) {
     // get each column by tag name    
     $cols = $row->getElementsByTagName( 'td' );
     //  echo $cols->item(0)->nodeValue .PHP_EOL; 
-    
-    $city_pat = '/' . $city . '/i';
+    $city_pat = '/UNION GROVE/i';
 //    echo $city_pat . PHP_EOL;
     if ( preg_match( $city_pat, $cols->item( 0 )->nodeValue ) ) {
         // echo the values  
@@ -154,13 +155,13 @@ foreach ( $rows as $row ) {
         //        echo $link . PHP_EOL;
         $title = split( '/', $link );
         //        print_r($title);
-        wrap_it( 'wp:post_name', $title[4] );
-        $new_title = str_replace( '-', ' ', $title[4] );
-        wrap_it( 'title', $new_title );
-        //        echo "		<dc:creator><![CDATA[Mikko]]></dc:creator>\n";
-        //Need to change for multiple users.
-        cwrap_it( 'dc:creator', 'Mikko' );
+        $new_title = str_replace( '-', ' ', $title[4] );  
         
+        preg_match('/.*(\d{5})$/',$new_title,$matches);
+//        echo $matches[1].PHP_EOL;
+        $zip = $matches[1];
+//        echo $zip2city[$zip].PHP_EOL;
+        $city = $zip2city[$zip];
         
         
         $content .= '<h2><a href="' . $link . '" title="' . $new_title . '" class="btn btn-default btn-large" itemprop="url">Full MLS Details for ' . $new_title . "</a></h2>\n";
@@ -238,11 +239,38 @@ foreach ( $rows as $row ) {
         $content .= '       <meta itemprop="longitude" content="' . $info[$labels[2]] . '" />' . PHP_EOL;
         $content .= '   </div>' . PHP_EOL;
         $content .= '</div><!-- Place -->' . PHP_EOL;
+        wrap_it( 'wp:post_name', $title[4] );
+
+        
+        wrap_it( 'title', $new_title );
+        //        echo "		<dc:creator><![CDATA[Mikko]]></dc:creator>\n";
+        //Need to change for multiple users.
+        cwrap_it( 'dc:creator', 'Mikko' );        
         echo cwrap_it( 'content:encoded', $content );
         //        foreach( $labels as $label ) echo $label . " = " . $info[$label].PHP_EOL;
         do_coords( $info[$labels[1]], $info[$labels[2]] );
         post_meta( '_price', $price );
-        post_meta( '_listing_id', $mls );
+        post_meta( '_property_id', $mls ); //wpcasa
+        post_meta( '_listing_id', $mls ); //wpsight
+/**
+ * Special processing because lots do not have beds nor baths.  Also, must do something about partial baths.
+ */
+        
+//*[@id="detail-info"]/b[1]        Beds
+//*[@id="detail-info"]/b[2]        Baths (full)
+//*[@id="detail-info"]/b[3]        home sq ft
+//*[@id="detail-info"]/b[4]        
+        
+        if ( $info[$labels[14]] === 'LOT' ) {
+            post_meta( '_listings_label', 'lots' );
+        } //$info[$labels[14]] === 'LOT'
+        else {
+            post_meta( '_listings_label', 'featured' );
+            $bs = $xpath->query('//*[@id="detail-info"]/b');
+            post_meta( '_details_1', $xpath->query('//*[@id="detail-info"]/b[1]')->item(0)->nodeValue );
+            post_meta( '_details_2', trim($xpath->query('//*[@id="detail-info"]/b[2]')->item(0)->nodeValue .'|'.$xpath->query('//*[@id="detail-info"]/b[3]')->item(0)->nodeValue ) );
+            post_meta( '_details_3', str_replace(',','',trim($xpath->query('//*[@id="detail-info"]/b[4]')->item(0)->nodeValue) ));
+        }
         post_meta( '_details_4', $info[$labels[7]] ); //Lot size acres
         post_meta( '_details_5', $info[$labels[5]] ); //Electric
         post_meta( '_details_6', $info[$labels[6]] ); //Exposure Faces
@@ -253,12 +281,7 @@ foreach ( $rows as $row ) {
         post_meta( '_yoast_wpseo_focuskw', $new_title );
         $seo_desc = 'Alabama MLS ' . $mls . ' ' . $info[$labels[7]] . ' acre ' . $info[$labels[14]] . ' ' . $cols->item( 1 )->nodeValue . ', ' . 'zoned ' . $info[$labels[9]] . ' ' . $new_title;
         post_meta( '_yoast_wpseo_metadesc', $seo_desc );
-        if ( $info[$labels[14]] === 'LOT' ) {
-            post_meta( '_listings_label', 'lots' );
-        } //$info[$labels[14]] === 'LOT'
-        else {
-            post_meta( '_listings_label', 'featured' );
-        }
+
         //Some more import template stuff, main thing is the 'property' custom post type.
         include 'post_stuff.php';
         echo "</item>\n";
