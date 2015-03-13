@@ -14,6 +14,9 @@ $lc_co = str_replace(' ','-',strtolower( $zip2county[$zip] ));
 $co = str_replace('-',' ',$lc_co );
 $co = tcase( $co );
 $prop_type = $info["Property SubType"];
+if ( $prop_type === "Single Family Detached" )
+    $prop_type = "Single Family Residence";
+
 $lc_prop_type = str_replace(' ','-',strtolower( $prop_type ));
 
 //echo $zip2county[$zip].PHP_EOL;
@@ -29,9 +32,9 @@ echo <<<RSS
 		<wp:is_sticky>0</wp:is_sticky>
         <category domain="location" nicename="{$state}"><![CDATA[{$state}]]></category>
 		<category domain="location" nicename="{$lc_sub}"><![CDATA[{$sub}]]></category>
-		<category domain="property-type" nicename="{$lc_prop_type}"><![CDATA[{$prop_type}]]></category>
 		<category domain="location" nicename="{$lc_co}"><![CDATA[{$co}]]></category>
 		<category domain="location" nicename="{$lc_city}"><![CDATA[{$city}]]></category>
+		<category domain="property-type" nicename="{$lc_prop_type}"><![CDATA[{$prop_type}]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_price_status</wp:meta_key>
 			<wp:meta_value><![CDATA[sale]]></wp:meta_value>
@@ -49,5 +52,13 @@ echo <<<RSS
 			<wp:meta_value><![CDATA[sidebar-right]]></wp:meta_value>
 		</wp:postmeta>        
 RSS;
-echo "\n";
+echo PHP_EOL;
+        $prop = $property_type[$info[$labels[13]]];
+        if ( $prop_type === 'Townhouse' )
+            $prop = 2960;
+        $space = <<<SPACE
+<a href="http://www.realestate-huntsville.com/idx/?idx-q-PropertyTypes%3C0%3E={$prop}&idx-q-RadiusLatitude={$info[$labels[1]]}&idx-q-RadiusLongitude={$info[$labels[2]]}&idx-q-RadiusDistanceInMiles=1" class="btn btn-default btn-large">Compare Nearby Properties</a>
+SPACE;
+        post_meta( '_space', $space );
+echo PHP_EOL;
 ?>
